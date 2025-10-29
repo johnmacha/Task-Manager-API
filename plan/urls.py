@@ -7,4 +7,4 @@ router.register(r'plan', TaskViewSet, basename='plan')
 
 urlpatterns = [
     path('', include(router.urls)),
-]
+   ]
