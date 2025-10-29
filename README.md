@@ -35,6 +35,6 @@ Built with Django and Django REST Framework (DRF), this project allows authentic
 
 - Run migrations
 
-Start the development server
+- Start the development server
 
-Obtain JWT tokens and begin using the API
+- Obtain JWT tokens and begin using the API
