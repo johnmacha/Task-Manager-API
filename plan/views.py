@@ -7,9 +7,11 @@ from .serializers import TaskSerializer
 
 # Create your views here.
 class TaskViewSet(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
     # Filtering fields
     filterset_class = TaskFilter
