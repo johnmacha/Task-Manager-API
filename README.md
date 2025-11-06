@@ -1,7 +1,7 @@
 # Task Manager API
 
 A simple yet powerful RESTful API for managing daily tasks and productivity goals.
-Built with Django and Django REST Framework (DRF), this project allows authenticated users to create, update, filter, and organize tasks efficiently.
+Built with Django, Django REST Framework (DRF) and React.js. This project allows authenticated users to create, update, filter, and organize tasks efficiently.
 
 # Key Features
 
@@ -17,6 +17,8 @@ Built with Django and Django REST Framework (DRF), this project allows authentic
 
 # Tech Stack
 
+- Front-End: React.js, Vite
+  
 - Backend: Django, Django REST Framework
 
 - Authentication: JWT (JSON Web Token)
