@@ -12,7 +12,7 @@ function Login() {
         password,
       });
 
-      // ✅ Save tokens in localStorage
+      // Save tokens in localStorage
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.refresh);
 
