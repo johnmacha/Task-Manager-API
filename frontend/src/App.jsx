@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createTask } from './api';
 import { getTasks } from './api';
 import axios from 'axios';
+import axiosInstance from './axiosInstance';
 import './App.css';
 
 function App() {
@@ -9,19 +10,12 @@ function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-// Paste your valid access token here temporarily
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDYwNTEzLCJpYXQiOjE3NjI0NjAyMTMsImp0aSI6IjJlZmE3ZDRlYTQzMTQxNDlhYzkyNDdiNGYyMjMwOWVlIiwidXNlcl9pZCI6IjEifQ.6rhnue3NBZabtCI7JE_Cq6so2-bNsenZbXByYxe7iOY";
-
   // cont [loading, setLoading] = useState(true);
 
 useEffect(() => {
   const fetchTasks = async () => {
     try {
-        const response = await axios.get("http://127.0.0.1:8000/api/plan/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+        const response = await axiosInstance.get("plan/");
 
       console.log("API response:", response.data);
       setTasks(response.data);
@@ -39,17 +33,11 @@ const handleAddTask = async (e) => {
   if (!title.trim()) return;
 
   try{
-        const response = await axios.post(
-        "http://127.0.0.1:8000/api/plan/",
+        const response = await axiosInstance.post(
+        "plan/",
         {
           title,
           description},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
       );
 
       setTasks([...tasks, response.data]);
@@ -63,15 +51,10 @@ const handleAddTask = async (e) => {
 };
 
 const handleDelete = async (id) => {
-  if (!window.confirm("Areyou sure you want to delete this task?")) return;
+  if (!window.confirm("Are you sure you want to delete this task?")) return;
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDYwNTEzLCJpYXQiOjE3NjI0NjAyMTMsImp0aSI6IjJlZmE3ZDRlYTQzMTQxNDlhYzkyNDdiNGYyMjMwOWVlIiwidXNlcl9pZCI6IjEifQ.6rhnue3NBZabtCI7JE_Cq6so2-bNsenZbXByYxe7iOY";
   try{
-    await axios.delete(`http://127.0.0.1:8000/api/plan/${id}/`,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await axiosInstance.delete(`plan/${id}/`);
 
     //Remove the deleted task from UI
     setTasks(tasks.filter((task) => task.id !== id));
@@ -80,6 +63,22 @@ const handleDelete = async (id) => {
 catch (error){
 console.error("Error deleting task:", error);
 }
+};
+
+const handleToggleComplete = async (task) => {
+  try{
+    const response = await axios.patch(
+      `http://127.0.0.1:8000/api/plan/${task.id}/`,
+      { completed: !task.completed },
+    );
+  
+    //Update state without referencing all tasks
+    setTasks(tasks.map(t => t.id === task.id ? response.data : t));
+  }
+  catch (error) {
+    console.error("Error updating task:", error);
+    }
+  
 };
 
   return (
@@ -101,7 +100,7 @@ console.error("Error deleting task:", error);
           onChange={(e) => setDescription(e.target.value)}
           style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
         />
-        <button type="submit" style={{ passing: "10px", width: "100%" }}>
+        <button type="submit" style={{ padding: "10px", width: "100%" }}>
           Add Task
         </button>
          </form>
@@ -111,23 +110,44 @@ console.error("Error deleting task:", error);
         ) : (
           <ul>
            {tasks.map((task) => (
-            <li key={task.id}>
-              <strong>{task.title}</strong> - {task.description}
-            <button
-            onClick={()=> handleDelete(task.id)}
-            style={{
-                marginLeft: "10px",
-                background: "red",
-                color: "white",
-                border: "none",
-                padding: "4px 8px",
-                borderRadius: "6px",
-                cursor: "pointer",
-            }}
-            >Delete
-            </button>
-            </li>
+
+              <li key={task.id}>
+              <strong style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+                {task.title}
+              </strong>{ " " } - {task.description}
+
+              <button
+              onClick = {() => handleToggleComplete(task)}
+              style = {{ 
+                  marginLeft: "10px",
+                  background: task.completed ? "gray" : "green",
+                  color: "white",
+                  border: "none",
+                  padding: "4px 8px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+               }}
+              >
+                {task.completed ? "Undo" : "Mark Complete"}
+              </button>
+
+               <button
+                onClick={()=> handleDelete(task.id)}
+                style={{
+                    marginLeft: "10px",
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    padding: "4px 8px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                  }}
+                  >Delete
+                  </button>
+                   </li>
+
           ))}
+
         </ul>
       )}
     </div>

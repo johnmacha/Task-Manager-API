@@ -27,5 +27,5 @@ class TaskViewSet(viewsets.ModelViewSet):
         return Task.objects.filter(user=self.request.user)
     
     def perform_create(self, serializer):
-        #Automatically assign the logged-in user when craeating a new task
+        #Automatically assign the logged-in user when creating a new task
         serializer.save(user=self.request.user) 
