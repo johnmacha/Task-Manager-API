@@ -67,7 +67,7 @@ console.error("Error deleting task:", error);
 
 const handleToggleComplete = async (task) => {
   try{
-    const response = await axios.patch(
+    const response = await axiosInstance.patch(
       `http://127.0.0.1:8000/api/plan/${task.id}/`,
       { completed: !task.completed },
     );

@@ -1,9 +1,12 @@
+import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -12,9 +15,10 @@ function Login() {
         password,
       });
 
-      // ✅ Save tokens in localStorage
+      // Save tokens in localStorage
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.refresh);
+      navigate("/plan");
 
       alert("Login successful!");
     } catch (error) {
