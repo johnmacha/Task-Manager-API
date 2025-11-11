@@ -28,7 +28,9 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <div className = "auth-container">
+      <h2>Login To PlanIt</h2>
+    <form onSubmit={handleLogin} className="auth-form">
       <input
         type="text"
         placeholder="Username"
@@ -42,7 +44,11 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Login</button>
-    </form>
+            <p>
+        Don't have an account? <a href="/signup">Signup here</a>
+      </p>
+      </form>
+      </div>
   );
 }
 
