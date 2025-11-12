@@ -1,6 +1,7 @@
 // frontend/src/Signup.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -17,11 +18,11 @@ function Signup() {
         email,
         password,
       });
-      alert("Account created successfully!");
+      toast.success("Account created successfully!");
       navigate("/");
     } catch (error) {
       console.error("Signup failed:", error.response?.data || error.message);
-      alert("Error creating account.");
+      toast.error("Error creating account.");
     }
   };
 

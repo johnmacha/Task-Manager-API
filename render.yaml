@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: my-bucketlist-app
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      npm install --prefix frontend
+      npm run build --prefix frontend
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn backend.wsgi:application

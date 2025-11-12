@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import { toast } from 'react-toastify';
 import axios from "axios";
 
 function Login() {
@@ -20,10 +21,10 @@ function Login() {
       localStorage.setItem("refresh_token", response.data.refresh);
       navigate("/plan");
 
-      alert("Login successful!");
+      toast.success("Login successful! Welcome aboard🤝");
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      alert("Invalid credentials");
+      toast.error("Login failed. Please try again.");
     }
   };
 

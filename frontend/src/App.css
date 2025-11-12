@@ -1,4 +1,7 @@
 /* Global layout */
+*{
+  font-family: 'Nunito Sans', sans-serif;
+}
 body {
   background-color: #f7f9fc;
   font-family: 'Poppins', sans-serif;

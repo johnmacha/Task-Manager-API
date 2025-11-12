@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createTask } from './api';
 import { getTasks } from './api';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import axiosInstance from './axiosInstance';
 
@@ -12,22 +12,25 @@ function TaskPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  // cont [loading, setLoading] = useState(true);
-
-useEffect(() => {
-  const fetchTasks = async () => {
-    try {
+  // Fetch Tasks
+  useEffect(() => {
+    const fetchTasks = async () => {
+            try {
         const response = await axiosInstance.get("plan/");
-
-      console.log("API response:", response.data);
-      setTasks(response.data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
-
-  fetchTasks(); // Call the async function
-}, []);
+        setTasks(response.data);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+        if (error.response?.status === 403) {
+          toast.warning("Session expired. Please log in again.");
+          localStorage.clear();
+          window.location.href = "/";
+        } else {
+          toast.error("Failed to load tasks.");
+        }
+      }
+    };
+    fetchTasks();
+  }, []);
 
 //Handle Add Task
 const handleAddTask = async (e) => {
@@ -86,7 +89,7 @@ const handleToggleComplete = async (task) => {
   return (
     <div className="task-container" style={{ padding: "20px" }}
     >
-      <h1>Welcome to PlanIt</h1>
+      <h1 style = {{color: "purple", fontFamily: "sans-serif"}}>Welcome to PlanIt</h1>
       <h2>My Tasks</h2>
 
       <form onSubmit={handleAddTask} style={{ marginBottom: "20px" }}>
@@ -104,7 +107,7 @@ const handleToggleComplete = async (task) => {
           onChange={(e) => setDescription(e.target.value)}
           style={{ padding: "8px", width: "100%", marginBottom: "10px" }}
         />
-        <button type="submit" style={{ padding: "10px", width: "100%" }}>
+        <button type="submit" style={{ padding: "10px", width: "100%", fontWeight: "bold" }}>
           Add Task
         </button>
          </form>
