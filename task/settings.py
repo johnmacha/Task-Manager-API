@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.onrender.com','127.0.0.1', 'localhost'
-]
+] #Added wildcard '.onrender.com'to avoid future edits
 
 
 # Application definition
@@ -161,9 +161,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Update template dirs
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'frontend' / 'dist']
+
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+#Point static files to Vite's assets
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend", "vite")
+    BASE_DIR / 'frontend' / 'dist' / 'assets',
     ]
 
 # Default primary key field type
