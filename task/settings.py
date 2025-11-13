@@ -79,7 +79,7 @@ ROOT_URLCONF = 'task.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR / 'frontend' / 'dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,9 +162,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Update template dirs
-TEMPLATES[0]['DIRS'] = [BASE_DIR / 'frontend' / 'dist']
 
 STATIC_URL = 'static/'
 
