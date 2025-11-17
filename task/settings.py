@@ -79,7 +79,7 @@ ROOT_URLCONF = 'task.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(BASE_DIR / 'frontend' / 'dist')],
+        'DIRS': [BASE_DIR / 'frontend' / 'dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -167,7 +167,9 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 #Point static files to Vite's assets
-STATICFILES_DIRS = [ str(BASE_DIR / 'frontend' / 'dist' / 'assets') ]
+STATICFILES_DIRS = [ 
+    BASE_DIR / 'frontend' / 'dist'
+ ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

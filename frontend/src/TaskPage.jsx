@@ -158,9 +158,9 @@ const handleToggleComplete = async (task) => {
         </ul>
       )}
       <a href="/">Logout</a>
-
+      <p>&copy;. All rights reserved @ric.ky._</p>
     </div>
-
+    
   );
 }
 
