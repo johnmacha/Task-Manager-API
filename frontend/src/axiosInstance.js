@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const baseURL = "http://127.0.0.1:8000/api/";
+const baseURL = "https://task-manager-api-11.onrender.com/";
 
 const axiosInstance = axios.create({
      baseURL,
