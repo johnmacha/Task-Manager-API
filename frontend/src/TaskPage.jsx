@@ -39,7 +39,7 @@ const handleAddTask = async (e) => {
 
   try{
         const response = await axiosInstance.post(
-        "plan/",
+        "/api/plan/",
         {
           title,
           description},
@@ -59,7 +59,7 @@ const handleDelete = async (id) => {
   if (!window.confirm("Are you sure you want to delete this task?")) return;
 
   try{
-    await axiosInstance.delete(`plan/${id}/`);
+    await axiosInstance.delete(`/api/plan/${id}/`);
 
     //Remove the deleted task from UI
     setTasks(tasks.filter((task) => task.id !== id));
@@ -73,7 +73,7 @@ console.error("Error deleting task:", error);
 const handleToggleComplete = async (task) => {
   try{
     const response = await axiosInstance.patch(
-      `http://127.0.0.1:8000/api/plan/${task.id}/`,
+      `${process.env.REACT_APP_API_URL}/api/plan/${task.id}/`,
       { completed: !task.completed },
     );
   
