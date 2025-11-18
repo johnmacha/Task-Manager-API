@@ -20,6 +20,7 @@ function Login() {
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.refresh);
       navigate("/plan");
+      console.log("API:", import.meta.env.VITE_API_URL);
 
       toast.success("Login successful! Welcome aboard🤝");
     } catch (error) {

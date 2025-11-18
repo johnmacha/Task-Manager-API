@@ -20,6 +20,7 @@ function Signup() {
       });
       toast.success("Account created successfully!");
       navigate("/");
+      console.log("API:", import.meta.env.VITE_API_URL);
     } catch (error) {
       console.error("Signup failed:", error.response?.data || error.message);
       toast.error("Error creating account.");
