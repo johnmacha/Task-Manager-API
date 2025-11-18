@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const baseURL = "https://task-manager-api-13.onrender.com/";
+const baseURL = import.meta.env.VITE_API_URL;
 
 const axiosInstance = axios.create({
      baseURL,

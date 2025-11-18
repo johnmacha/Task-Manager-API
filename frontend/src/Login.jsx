@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
-import axios from "axios";
+import api from "axios";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -11,7 +11,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://task-manager-api-13.onrender.com/", {
+      const response = await api.post("/api/login/", {
         username,
         password,
       });

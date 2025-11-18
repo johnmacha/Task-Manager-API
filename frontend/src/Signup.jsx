@@ -1,6 +1,6 @@
 // frontend/src/Signup.jsx
 import React, { useState } from "react";
-import axios from "axios";
+import api from "axios";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://task-manager-api-13.onrender.com/", {
+      await api.post("/api/register/", {
         username,
         email,
         password,
