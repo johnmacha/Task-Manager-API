@@ -9,6 +9,6 @@ router.register(r'plan', TaskViewSet, basename='plan')
 urlpatterns = [
     path('', include(router.urls)),
     path('register/', RegisterView.as_view(), name = 'register'),
-    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
 
    ]
