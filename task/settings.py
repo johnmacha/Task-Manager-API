@@ -66,7 +66,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", #Vite default
     "http://127.0.0.1:5173", #Sometimes needed too
-    "https://task-manager-api-24.onrender.com",
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+ r"^https:\/\/task-manager-api-\d+\.onrender\.com$",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
