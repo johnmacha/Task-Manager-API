@@ -17,7 +17,7 @@ function TaskPage() {
     const fetchTasks = async () => {
             try {
         const response = await axiosInstance.get("/plan/");
-        setTasks(response.data);
+        setTasks(response.data.tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
         if (error.response?.status === 403) {
